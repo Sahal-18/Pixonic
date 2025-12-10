@@ -20,7 +20,6 @@ body.dark {
     --text: #f5f5f5;
     --card-bg: #2d2d2d;
     --border: #444;
-    --accent: #51b848;
 }
 
 /* ------------------ GENERAL ------------------ */
@@ -51,32 +50,31 @@ header h1 {
     color: var(--accent);
 }
 
-/* Theme toggle button */
-#themeToggle {
-    padding: 8px 15px;
-    background: var(--accent);
+/* Icon Buttons */
+.icon-btn {
+    background: none;
     border: none;
-    border-radius: 6px;
-    color: #fff;
-    font-weight: bold;
+    font-size: 1.8rem;
     cursor: pointer;
+    margin-left: 15px;
+    color: var(--text);
 }
 
-/* ------------------ SIDEBAR ------------------ */
+/* ------------------ SIDEBAR (RIGHT SIDE) ------------------ */
 .sidebar {
     width: 220px;
     background: var(--card-bg);
-    border-right: 1px solid var(--border);
+    border-left: 1px solid var(--border);
     height: 100vh;
     padding: 1.2rem;
     position: fixed;
     top: 0;
-    left: -230px;
+    right: -230px;
     transition: 0.3s;
 }
 
 .sidebar.open {
-    left: 0;
+    right: 0;
 }
 
 .sidebar a {
@@ -88,23 +86,10 @@ header h1 {
     border-bottom: 1px solid var(--border);
 }
 
-#menuBtn {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
 /* ------------------ MAIN CONTENT ------------------ */
 main {
     padding: 1.5rem;
-    margin-left: 0;
     transition: 0.3s;
-}
-
-.sidebar.open + main {
-    margin-left: 220px;
 }
 
 /* ------------------ PRODUCT GRID ------------------ */
@@ -119,7 +104,6 @@ main {
     border: 1px solid var(--border);
     padding: 1rem;
     border-radius: 10px;
-    transition: 0.2s;
 }
 
 .card img {
@@ -169,11 +153,11 @@ footer {
 
 <!-- HEADER -->
 <header>
-    <div style="display:flex; align-items:center;">
-        <button id="menuBtn">☰</button>
-        <h1>PixoNic</h1>
+    <h1>PixoNic</h1>
+    <div>
+        <button id="themeToggle" class="icon-btn">🌙</button>
+        <button id="menuBtn" class="icon-btn">☰</button>
     </div>
-    <button id="themeToggle">Light Mode</button>
 </header>
 
 <!-- MAIN CONTENT -->
@@ -194,25 +178,20 @@ document.getElementById('menuBtn').onclick = () => {
 };
 
 /* ------------------ THEME TOGGLE ------------------ */
-const toggleBtn = document.getElementById('themeToggle');
+const themeBtn = document.getElementById("themeToggle");
 const THEME_KEY = "pixonic_theme";
 
 function applyTheme(isDark) {
     document.body.classList.toggle("dark", isDark);
-    toggleBtn.textContent = isDark ? "Dark Mode" : "Light Mode";
+    themeBtn.textContent = isDark ? "☀️" : "🌙";
 }
 
 (function () {
     const saved = localStorage.getItem(THEME_KEY);
-    if (saved) {
-        applyTheme(saved === "dark");
-    } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        applyTheme(prefersDark);
-    }
+    saved ? applyTheme(saved === "dark") : applyTheme(false);
 })();
 
-toggleBtn.onclick = () => {
+themeBtn.onclick = () => {
     const isDark = document.body.classList.toggle("dark");
     localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
     applyTheme(isDark);
@@ -229,14 +208,13 @@ const products = [
 const grid = document.getElementById("productGrid");
 products.forEach(p => {
     grid.innerHTML += `
-        <div class"card">
+        <div class="card">
             <img src="${p.img}" alt="${p.title}">
             <h3>${p.title}</h3>
             <p>${p.price}</p>
         </div>`;
 });
-     </script>
+</script>
+
 </body>
-</html
-
-
+</html>
