@@ -229,123 +229,16 @@ const products = [
 const grid = document.getElementById("productGrid");
 products.forEach(p => {
     grid.innerHTML += `
-        <div class="card">
+        <div class"card">
             <img src="${p.img}" alt="${p.title}">
             <h3>${p.title}</h3>
             <p>${p.price}</p>
         </div>`;
 });
 </script>
-
-</body>
-</html>
-    font-weight: 500;
-}
-
-.categories a:hover {
-    color: #fff;
-}
-
-/* -------- Main Content -------- */
-.content {
-    display: flex;
-    flex: 1;
-    padding: 2rem;
-    gap: 2rem;
-}
-
-.products, .ads {
-    background: #2a2a2a;
-    padding: 1.5rem;
-    border-radius: 8px;
-}
-
-.products {
-    flex: 3;
-}
-
-.ads {
-    flex: 1;
-}
-
-.products h2,
-.ads h2 {
-    color: #51b848;
-    margin-bottom: 1rem;
-}
-
-/* -------- Footer -------- */
-.footer {
-    text-align: center;
-    padding: 1rem;
-    background: #1a1a1a;
-    border-top: 1px solid #333;
-    color: #ccc;
-}
-
-/* -------- Responsive -------- */
-@media (max-width: 900px) {
-    .content {
-        flex-direction: column;
-    }
-
-    .search-section input {
-        width: 60%;
-    }
-}
-
-@media (max-width: 600px) {
-    .search-section {
-        flex-direction: column;
-    }
-
-    .search-section input {
-        width: 100%;
-    }
-
-    .categories {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .profile-area a {
-        margin-left: 0.5rem;
-    }
-}
-        </style>
-    </head>
-    <body>
-        <header class="header">
-            <div class="logo-area">
-                 <img src="logo.png" alt="Brand logo">
-                 <h1>PIXONIC</h1>
-            </div>
-            <div class="profile-area">
-                <a href="#" class="profile">profile</a>
-                <a href="#" class="orders">orders</a>
-            </div>
-        </header>
-        <section class="search-section">
-            <input type="text" placeholder="Search for product....">
-            <button>Search</button>
-        </section>
-        <nav class="categories">
-            <a href="#">cotegory1</a>
-            <a href="#">cotegory2</a>
-            <a href="#">cotegory3</a>
-            <a href="#">cotegory4</a>
-        </nav>
-        <main class="content">
-            <section class="products">
-                <h2>Featured Products</h2>
-            </section>
-            <aside class="ads">
-                <h2>Advertisements</h2>
-            </aside>
-        </main>
-        <footer class="footer">
+<footer class="footer">
             <p>&copy;2025 . All rights reserved</p>
         </footer>
-    </body>
+</body>
+</html
 
-</html>
