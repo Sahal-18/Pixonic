@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="title">PixoNic</title>  <!-- FIXED: Added id so translation works -->
+<title id="title">PixoNic</title>  
 
 <style>
 /* ------------------ THEME VARIABLES ------------------ */
@@ -186,7 +186,7 @@ footer {
 <script>
 /* ------------------ SIDEBAR ------------------ */
 const sidebar = document.getElementById("sidebar");
-const menuBtn = document.getElementById("menuBtn");   /* ✅ FIXED */
+const menuBtn = document.getElementById("menuBtn");   
 
 menuBtn.onclick = () => sidebar.classList.toggle("open");
 
@@ -305,7 +305,7 @@ function updateTheme() {
     themeBtn.textContent = dark ? "☀" : "☾";
 
     // 🔥 AUTO CHANGE LOGO WITH THEME
-    logoImg.src = dark ? "images/logo2.png" : "images/logo1.png";
+    logoImg.src = dark ? "logo2.png" : "logo1.png";
 }
 
 themeBtn.onclick = () => {
@@ -319,3 +319,4 @@ updateTheme();
 </script>
 </body>
 </html>
+
