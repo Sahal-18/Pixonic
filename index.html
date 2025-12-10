@@ -155,7 +155,7 @@ footer {
 <header>
     <h1>PixoNic</h1>
     <div>
-        <button id="themeToggle" class="icon-btn">🌙</button>
+        <button id="themeToggle" class="icon-btn">☾</button>
         <button id="menuBtn" class="icon-btn">☰</button>
     </div>
 </header>
@@ -183,7 +183,7 @@ const THEME_KEY = "pixonic_theme";
 
 function applyTheme(isDark) {
     document.body.classList.toggle("dark", isDark);
-    themeBtn.textContent = isDark ? "☀️" : "🌙";
+    themeBtn.textContent = isDark ? "☀" : "☾";
 }
 
 (function () {
@@ -218,3 +218,4 @@ products.forEach(p => {
 
 </body>
 </html>
+
