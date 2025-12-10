@@ -1,12 +1,29 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PixoNic</title>
-        <link rel="style" href="css/style.css">
-        <style>
-/* -------- Global Styles -------- */
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixoNic</title>
+
+<style>
+/* ------------------ THEME VARIABLES ------------------ */
+:root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --card-bg: #f2f2f2;
+    --border: #dcdcdc;
+    --accent: #51b848;
+}
+
+body.dark {
+    --bg: #1a1a1a;
+    --text: #f5f5f5;
+    --card-bg: #2d2d2d;
+    --border: #444;
+    --accent: #51b848;
+}
+
+/* ------------------ GENERAL ------------------ */
 * {
     margin: 0;
     padding: 0;
@@ -15,99 +32,213 @@
 }
 
 body {
-    background-color: #231f20;
-    color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
 }
 
-/* -------- Header -------- */
+/* ------------------ HEADER ------------------ */
 header {
-    background: #1a1a1a;
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #3a3a3a;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--card-bg);
 }
 
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+header h1 {
+    font-size: 1.7rem;
+    color: var(--accent);
 }
 
-.logo-area img {
-    width: 40px;
-    height: 40px;
-}
-
-.logo-area h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #51b848;
-}
-
-.profile-area a {
-    color: #fff;
-    margin-left: 1rem;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-.profile-area a:hover {
-    color: #51b848;
-}
-
-/* -------- Search Section -------- */
-.search-section {
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.search-section input {
-    width: 40%;
-    padding: 12px;
-    border-radius: 5px;
-    border: 2px solid #51b848;
-    background: #2d2d2d;
-    color: #fff;
-    outline: none;
-}
-
-.search-section button {
-    padding: 12px 20px;
+/* Theme toggle button */
+#themeToggle {
+    padding: 8px 15px;
+    background: var(--accent);
     border: none;
-    background: #51b848;
-    color: #231f20;
+    border-radius: 6px;
+    color: #fff;
     font-weight: bold;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-.search-section button:hover {
-    background: #439a3c;
+/* ------------------ SIDEBAR ------------------ */
+.sidebar {
+    width: 220px;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    padding: 1.2rem;
+    position: fixed;
+    top: 0;
+    left: -230px;
+    transition: 0.3s;
 }
 
-/* -------- Categories Navigation -------- */
-.categories {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    padding: 1rem;
-    background: #1c1c1c;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+.sidebar.open {
+    left: 0;
 }
 
-.categories a {
-    color: #51b848;
+.sidebar a {
+    display: block;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    color: var(--text);
     text-decoration: none;
-    font-size: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+#menuBtn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* ------------------ MAIN CONTENT ------------------ */
+main {
+    padding: 1.5rem;
+    margin-left: 0;
+    transition: 0.3s;
+}
+
+.sidebar.open + main {
+    margin-left: 220px;
+}
+
+/* ------------------ PRODUCT GRID ------------------ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.card p {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* ------------------ FOOTER ------------------ */
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    background: var(--card-bg);
+}
+
+/* ------------------ MOBILE ------------------ */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="#">Category 1</a>
+    <a href="#">Category 2</a>
+    <a href="#">Category 3</a>
+    <a href="#">Category 4</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div style="display:flex; align-items:center;">
+        <button id="menuBtn">☰</button>
+        <h1>PixoNic</h1>
+    </div>
+    <button id="themeToggle">Light Mode</button>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+    <section class="grid" id="productGrid"></section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 All rights reserved.
+</footer>
+
+<script>
+/* ------------------ SIDEBAR TOGGLE ------------------ */
+const sidebar = document.getElementById('sidebar');
+document.getElementById('menuBtn').onclick = () => {
+    sidebar.classList.toggle("open");
+};
+
+/* ------------------ THEME TOGGLE ------------------ */
+const toggleBtn = document.getElementById('themeToggle');
+const THEME_KEY = "pixonic_theme";
+
+function applyTheme(isDark) {
+    document.body.classList.toggle("dark", isDark);
+    toggleBtn.textContent = isDark ? "Dark Mode" : "Light Mode";
+}
+
+(function () {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved) {
+        applyTheme(saved === "dark");
+    } else {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark);
+    }
+})();
+
+toggleBtn.onclick = () => {
+    const isDark = document.body.classList.toggle("dark");
+    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+    applyTheme(isDark);
+};
+
+/* ------------------ PRODUCT CARDS ------------------ */
+const products = [
+    { title: "Vintage Camera", price: "$120", img: "https://via.placeholder.com/300x200?text=Camera" },
+    { title: "Retro Lens", price: "$45", img: "https://via.placeholder.com/300x200?text=Lens" },
+    { title: "Tripod Pro", price: "$80", img: "https://via.placeholder.com/300x200?text=Tripod" },
+    { title: "Leather Case", price: "$30", img: "https://via.placeholder.com/300x200?text=Case" }
+];
+
+const grid = document.getElementById("productGrid");
+products.forEach(p => {
+    grid.innerHTML += `
+        <div class="card">
+            <img src="${p.img}" alt="${p.title}">
+            <h3>${p.title}</h3>
+            <p>${p.price}</p>
+        </div>`;
+});
+</script>
+
+</body>
+</html>
     font-weight: 500;
 }
 
@@ -216,4 +347,5 @@ header {
             <p>&copy;2025 . All rights reserved</p>
         </footer>
     </body>
+
 </html>
