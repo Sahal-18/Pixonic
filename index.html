@@ -50,7 +50,7 @@ header h1 {
     color: var(--accent);
 }
 
-/* Icon Buttons */
+/* Buttons */
 .icon-btn {
     background: none;
     border: none;
@@ -60,17 +60,18 @@ header h1 {
     color: var(--text);
 }
 
-/* ------------------ SIDEBAR (RIGHT SIDE) ------------------ */
+/* ------------------ SIDEBAR ------------------ */
 .sidebar {
-    width: 220px;
+    width: 250px;
     background: var(--card-bg);
     border-left: 1px solid var(--border);
     height: 100vh;
     padding: 1.2rem;
     position: fixed;
     top: 0;
-    right: -230px;
+    right: -260px;
     transition: 0.3s;
+    z-index: 1000;
 }
 
 .sidebar.open {
@@ -86,13 +87,22 @@ header h1 {
     border-bottom: 1px solid var(--border);
 }
 
-/* ------------------ MAIN CONTENT ------------------ */
-main {
-    padding: 1.5rem;
-    transition: 0.3s;
+/* Dropdown */
+.lang-select {
+    width: 100%;
+    padding: 8px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-top: 10px;
 }
 
 /* ------------------ PRODUCT GRID ------------------ */
+main {
+    padding: 1.5rem;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -131,11 +141,9 @@ footer {
     background: var(--card-bg);
 }
 
-/* ------------------ MOBILE ------------------ */
+/* Mobile */
 @media (max-width: 600px) {
-    header h1 {
-        font-size: 1.3rem;
-    }
+    header h1 { font-size: 1.3rem; }
 }
 </style>
 </head>
@@ -143,79 +151,160 @@ footer {
 
 <!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-    <a href="#">Category 1</a>
-    <a href="#">Category 2</a>
-    <a href="#">Category 3</a>
-    <a href="#">Category 4</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a id="cat1">Category 1</a>
+    <a id="cat2">Category 2</a>
+    <a id="cat3">Category 3</a>
+    <a id="cat4">Category 4</a>
+    <a id="about">About</a>
+    <a id="contact">Contact</a>
+
+    <label style="margin-top:15px; font-size:1.1rem;">Language</label>
+    <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="ml">Malayalam</option>
+        <option value="ar">Arabic</option>
+        <option value="zh">Chinese</option>
+        <option value="fr">French</option>
+    </select>
 </div>
 
 <!-- HEADER -->
 <header>
-    <h1>PixoNic</h1>
+    <h1 id="title">PixoNic</h1>
     <div>
         <button id="themeToggle" class="icon-btn">☾</button>
         <button id="menuBtn" class="icon-btn">☰</button>
     </div>
 </header>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main>
     <section class="grid" id="productGrid"></section>
 </main>
 
 <!-- FOOTER -->
-<footer>
-    © 2025 All rights reserved.
-</footer>
+<footer id="footer">© 2025 All rights reserved.</footer>
 
 <script>
-/* ------------------ SIDEBAR TOGGLE ------------------ */
-const sidebar = document.getElementById('sidebar');
-document.getElementById('menuBtn').onclick = () => {
-    sidebar.classList.toggle("open");
+/* ------------------ SIDEBAR ------------------ */
+const sidebar = document.getElementById("sidebar");
+menuBtn.onclick = () => sidebar.classList.toggle("open");
+
+document.addEventListener("click", (e) => {
+    if (!sidebar.contains(e.target) && !menuBtn.contains(e.target))
+        sidebar.classList.remove("open");
+});
+
+/* ------------------ PRODUCT LIST (TRANSLATABLE) ------------------ */
+let products = {
+    en: [
+        { title: "Vintage Camera", price: "$120" },
+        { title: "Retro Lens", price: "$45" },
+        { title: "Tripod Pro", price: "$80" },
+        { title: "Leather Case", price: "$30" }
+    ],
+    hi: [
+        { title: "पुराना कैमरा", price: "₹9990" },
+        { title: "रेट्रो लेंस", price: "₹3490" },
+        { title: "ट्राइपॉड प्रो", price: "₹6490" },
+        { title: "लेदर केस", price: "₹2490" }
+    ],
+    ml: [
+        { title: "വിംടേജ് ക്യാമറ", price: "₹9990" },
+        { title: "റെട്രോ ലെൻസ്", price: "₹3490" },
+        { title: "ട്രൈപോഡ് പ്രോ", price: "₹6490" },
+        { title: "ലെതർ കേസ്", price: "₹2490" }
+    ],
+    ar: [
+        { title: "كاميرا قديمة", price: "$120" },
+        { title: "عدسة ريترو", price: "$45" },
+        { title: "ترايبود برو", price: "$80" },
+        { title: "حافظة جلد", price: "$30" }
+    ],
+    zh: [
+        { title: "复古相机", price: "¥820" },
+        { title: "复古镜头", price: "¥310" },
+        { title: "专业三脚架", price: "¥560" },
+        { title: "皮革保护套", price: "¥210" }
+    ],
+    fr: [
+        { title: "Caméra Vintage", price: "€110" },
+        { title: "Objectif Rétro", price: "€40" },
+        { title: "Trépied Pro", price: "€75" },
+        { title: "Étui en Cuir", price: "€28" }
+    ]
 };
+
+function loadProducts(lang) {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "";
+    products[lang].forEach(p => {
+        grid.innerHTML += `
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200?text=Product" />
+                <h3>${p.title}</h3>
+                <p>${p.price}</p>
+            </div>
+        `;
+    });
+}
+
+/* ------------------ LANGUAGE CHANGE ------------------ */
+document.getElementById("langSelect").addEventListener("change", (e) => {
+    changeLang(e.target.value);
+});
+
+function changeLang(code) {
+    const text = {
+        en: { title: "PixoNic", footer: "© 2025 All rights reserved.",
+            cat1: "Category 1", cat2: "Category 2", cat3: "Category 3", cat4: "Category 4",
+            about: "About", contact: "Contact" },
+
+        hi: { title: "पिक्सोनिक", footer: "© 2025 सर्वाधिकार सुरक्षित।",
+            cat1: "श्रेणी 1", cat2: "श्रेणी 2", cat3: "श्रेणी 3", cat4: "श्रेणी 4",
+            about: "हमारे बारे में", contact: "संपर्क" },
+
+        ml: { title: "പിക്‌സോണിക്", footer: "© 2025 എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു.",
+            cat1: "വിഭാഗം 1", cat2: "വിഭാഗം 2", cat3: "വിഭാഗം 3", cat4: "വിഭാഗം 4",
+            about: "കുറിച്ച്", contact: "ബന്ധപ്പെടുക" },
+
+        ar: { title: "بيكسونيك", footer: "© 2025 جميع الحقوق محفوظة.",
+            cat1: "الفئة 1", cat2: "الفئة 2", cat3: "الفئة 3", cat4: "الفئة 4",
+            about: "حول", contact: "اتصل" },
+
+        zh: { title: "PixoNic 像素店", footer: "© 2025 版权所有。",
+            cat1: "类别 1", cat2: "类别 2", cat3: "类别 3", cat4: "类别 4",
+            about: "关于我们", contact: "联系" },
+
+        fr: { title: "PixoNic", footer: "© 2025 Tous droits réservés.",
+            cat1: "Catégorie 1", cat2: "Catégorie 2", cat3: "Catégorie 3", cat4: "Catégorie 4",
+            about: "À propos", contact: "Contact" }
+    };
+
+    let t = text[code];
+
+    document.getElementById("title").textContent = t.title;
+    document.getElementById("footer").textContent = t.footer;
+    document.getElementById("cat1").textContent = t.cat1;
+    document.getElementById("cat2").textContent = t.cat2;
+    document.getElementById("cat3").textContent = t.cat3;
+    document.getElementById("cat4").textContent = t.cat4;
+    document.getElementById("about").textContent = t.about;
+    document.getElementById("contact").textContent = t.contact;
+
+    loadProducts(code);
+}
+
+loadProducts("en");
 
 /* ------------------ THEME TOGGLE ------------------ */
 const themeBtn = document.getElementById("themeToggle");
-const THEME_KEY = "pixonic_theme";
-
-function applyTheme(isDark) {
-    document.body.classList.toggle("dark", isDark);
-    themeBtn.textContent = isDark ? "☀" : "☾";
-}
-
-(function () {
-    const saved = localStorage.getItem(THEME_KEY);
-    saved ? applyTheme(saved === "dark") : applyTheme(false);
-})();
-
 themeBtn.onclick = () => {
-    const isDark = document.body.classList.toggle("dark");
-    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
-    applyTheme(isDark);
+    const dark = document.body.classList.toggle("dark");
+    themeBtn.textContent = dark ? "☀" : "☾";
 };
-
-/* ------------------ PRODUCT CARDS ------------------ */
-const products = [
-    { title: "Vintage Camera", price: "$120", img: "https://via.placeholder.com/300x200?text=Camera" },
-    { title: "Retro Lens", price: "$45", img: "https://via.placeholder.com/300x200?text=Lens" },
-    { title: "Tripod Pro", price: "$80", img: "https://via.placeholder.com/300x200?text=Tripod" },
-    { title: "Leather Case", price: "$30", img: "https://via.placeholder.com/300x200?text=Case" }
-];
-
-const grid = document.getElementById("productGrid");
-products.forEach(p => {
-    grid.innerHTML += `
-        <div class="card">
-            <img src="${p.img}" alt="${p.title}">
-            <h3>${p.title}</h3>
-            <p>${p.price}</p>
-        </div>`;
-});
 </script>
 
 </body>
 </html>
-
