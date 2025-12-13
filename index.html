@@ -169,7 +169,8 @@ footer {
 
 <!-- HEADER -->
 <header>
-    <img src="https://github.com/Sahal-18/Pixonic/blob/e0b9027522a7b3eece9cc130f1509115248ecddc/Logo2.png" class="header-logo" id="logoImg" alt="logo">
+    <img src="https://raw.githubusercontent.com/Sahal-18/Pixonic/main/Logo2.png"
+     class="header-logo" id="logoImg" alt="logo">
     <div>
         <button id="themeToggle" class="icon-btn">☾</button>
         <button id="menuBtn" class="icon-btn">☰</button>
@@ -304,10 +305,10 @@ function updateTheme() {
     const dark = document.body.classList.contains("dark");
     themeBtn.textContent = dark ? "☀" : "☾";
 
-    // 🔥 AUTO CHANGE LOGO WITH THEME
-    logoImg.src = dark ? "https://github.com/Sahal-18/Pixonic/blob/e0b9027522a7b3eece9cc130f1509115248ecddc/Logo2.png" : "https://github.com/Sahal-18/Pixonic/blob/e0b9027522a7b3eece9cc130f1509115248ecddc/Logo1.png";
+    logoImg.src = dark
+        ? "https://raw.githubusercontent.com/Sahal-18/Pixonic/main/Logo2.png"
+        : "https://raw.githubusercontent.com/Sahal-18/Pixonic/main/Logo1.png";
 }
-
 themeBtn.onclick = () => {
     document.body.classList.toggle("dark");
     updateTheme();
@@ -319,6 +320,7 @@ updateTheme();
 </script>
 </body>
 </html>
+
 
 
 
